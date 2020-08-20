@@ -7,11 +7,14 @@ const tables = document.querySelectorAll('table');
 
 const data = {};
 Array.from(tables).forEach(table => {
-  const label = table.querySelector('caption').textContent.trim().replace(/（.+\）$/, "");
+  const caption = table.querySelector('caption').textContent.trim();
+  const label = caption.replace(/（.+\）$/, "");
 
   let ymd = [2020, null, null];
+  if (caption.match(/([0-9]+)月[0-9]+日から/)) ymd[1] = parseInt(RegExp.$1);
+
   const dates = Array.from(table.querySelectorAll('th')).map(a => {
-    let date = a.textContent.replace(/\s/g,"");
+    let date = a.textContent.replace(/\s/g, "");
     if (date.match(/^([0-9]+)月([0-9]+)日$/)) {
       ymd[1] = parseInt(RegExp.$1);
       ymd[2] = parseInt(RegExp.$2);

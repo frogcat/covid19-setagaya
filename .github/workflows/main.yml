@@ -3,6 +3,9 @@ name: main
 on:
   schedule:
     - cron: '0 10 * * MON,TUE,WED,THU,FRI'
+  push:
+    paths-ignore:
+    - 'docs/**'
 
 jobs:
   build:

@@ -15,12 +15,11 @@ jobs:
     - run: npm ci
     - run: curl https://www.city.setagaya.lg.jp/mokuji/kusei/001/001/004/d00185364.html > docs/data.html
     - run: npm run build
+    - run: npm run test
     - run: git config --local user.email "frogcat@users.noreply.github.com"
     - run: git config --local user.name "frogcat-bot"
     - run: git add docs
     - run: git commit -m "Update data.html and data.csv"
-
     - uses: ad-m/github-push-action@v0.6.0
-      if: ${{ success() }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

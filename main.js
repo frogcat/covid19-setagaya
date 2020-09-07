@@ -11,7 +11,7 @@ Array.from(tables).forEach(table => {
   const label = caption.replace(/（.+\）$/, "");
 
   let ymd = [2020, null, null];
-  if (caption.match(/([0-9]+)月[0-9]+日から/)) ymd[1] = parseInt(RegExp.$1);
+  if (caption.match(/([0-9]+)月[0-9]+日/)) ymd[1] = parseInt(RegExp.$1);
 
   const dates = Array.from(table.querySelectorAll('th')).map(a => {
     let date = a.textContent.replace(/\s/g, "");

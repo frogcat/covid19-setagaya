@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "node main.js docs/data.html > docs/data.csv",
+    "build": "node main.js docs/data.html docs/data.csv",
     "test": "node test.js"
   },
   "repository": {

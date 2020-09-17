@@ -6,6 +6,22 @@ const document = new JSDOM(html).window.document;
 const tables = document.querySelectorAll('table');
 
 const data = {};
+
+(function() {
+  let header = null;
+  fs.readFileSync(process.argv[3], "UTF-8").trim().split("\n").map(a => a.split(",")).forEach(a => {
+    const date = a.shift();
+    if (header === null) {
+      header = a;
+    } else {
+      data[date] = {};
+      header.forEach((key, i) => {
+        data[date][key] = a[i];
+      });
+    }
+  });
+})();
+
 Array.from(tables).forEach(table => {
   const caption = table.querySelector('caption').textContent.trim();
   const label = caption.replace(/（.+\）$/, "");
@@ -43,12 +59,13 @@ Object.values(data).forEach(a => {
   });
 });
 
-
-console.log("日付," + labels.join(","));
+let result = `日付,${labels.join(",")}\n`;
 dates.forEach(date => {
   const x = [date];
   labels.forEach(label => {
     x.push(data[date][label] || "");
   });
-  console.log(x.join(","));
+  result += `${x.join(",")}\n`;
 });
+
+fs.writeFileSync(process.argv[3], result, "UTF-8");

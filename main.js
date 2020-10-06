@@ -1,7 +1,9 @@
 const fs = require("fs");
 const JSDOM = require("jsdom").JSDOM;
 
-const html = fs.readFileSync(process.argv[2], "UTF-8");
+let html = fs.readFileSync(process.argv[2], "UTF-8");
+html = html.replace(/日ごとの陽性者数/g, "日ごとの感染者数");
+
 const document = new JSDOM(html).window.document;
 const tables = document.querySelectorAll('table');
 

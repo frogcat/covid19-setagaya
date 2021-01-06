@@ -28,14 +28,18 @@ Array.from(tables).forEach(table => {
   const caption = table.querySelector('caption').textContent.trim();
   const label = caption.replace(/（.+\）$/, "");
 
-  let ymd = [2020, null, null];
+  let year = new Date().getFullYear();
+  let month = new Date().getMonth() + 1;
+  let ymd = [year, null, null];
   if (caption.match(/([0-9]+)月[0-9]+日/)) ymd[1] = parseInt(RegExp.$1);
+  if (ymd[1] > month) ymd[0] = year - 1;
 
   const dates = Array.from(table.querySelectorAll('th')).map(a => {
     let date = a.textContent.replace(/\s/g, "");
     if (date.match(/^([0-9]+)月([0-9]+)日$/)) {
       ymd[1] = parseInt(RegExp.$1);
       ymd[2] = parseInt(RegExp.$2);
+      if (ymd[1] > month) ymd[0] = year - 1;
     } else if (date.match(/^([0-9]+)日$/)) {
       ymd[2] = parseInt(RegExp.$1);
     } else {

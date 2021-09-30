@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/frogcat/covid19-setagaya#readme",
   "dependencies": {
-    "jsdom": "^16.5.3",
-    "tape": "^5.2.2"
+    "jsdom": "^17.0.0",
+    "tape": "^5.3.1"
   }
 }
